@@ -18,6 +18,14 @@ public class Colors : MonoBehaviour {
 
     public Color[] splitColors;
 
+    public Color combineColors(Color col1, Color col2)
+    {
+        if(col1 == yellow && col2 == blue)
+        {
+            return green;
+        } else if ()
+    }
+
     public Color[] SplitGreen()
     {
         splitColors = new Color[] { yellow, blue };
