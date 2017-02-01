@@ -103,7 +103,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 702af7c92f0d3104e9d201cd5be37c63, type: 2}
+  - {fileID: 2100000, guid: 872de495e18d2274f96e7dced3c4b5f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -183,12 +183,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpHeight: 15
+  jumpHeight: 18
   groundCheck: {fileID: 420168}
   groundCheckRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  grounded: 0
+  doubleJumped: 0
   colors: {fileID: 0}
   canMove: 0
   objectColor: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 0}
@@ -197,7 +199,7 @@ MonoBehaviour:
   interactSprite: {fileID: 164874}
   mateCube: {fileID: 0}
   interact: {fileID: 0}
-  combineColor: {r: 0, g: 0, b: 0, a: 0}
+  combinedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &21259580
 SpriteRenderer:
   m_ObjectHideFlags: 1

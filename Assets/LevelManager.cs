@@ -76,10 +76,23 @@ public class LevelManager : MonoBehaviour {
         {
             currentFollow.GetComponent<PlayerController>().moveRight();
         }
-        if (Input.GetKey(KeyCode.W))
+
+        //jumping
+        if (currentFollow.GetComponent<PlayerController>().grounded)
+        {
+            currentFollow.GetComponent<PlayerController>().doubleJumped = false;
+        }
+        if (Input.GetKeyDown(KeyCode.W) && currentFollow.GetComponent<PlayerController>().grounded)
         {
             currentFollow.GetComponent<PlayerController>().jump();
         }
+
+        if (Input.GetKeyDown(KeyCode.W) && !currentFollow.GetComponent<PlayerController>().doubleJumped && !currentFollow.GetComponent<PlayerController>().grounded)
+        {
+            currentFollow.GetComponent<PlayerController>().jump();
+            currentFollow.GetComponent<PlayerController>().doubleJumped = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             currentFollow.GetComponent<PlayerController>().SplitKey();
@@ -93,6 +106,8 @@ public class LevelManager : MonoBehaviour {
         {
             currentFollowedNumber = 0;
         }
+
+        numberOfPlayers = cubeList.Count;
 
     }
 

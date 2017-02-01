@@ -5,6 +5,8 @@ public class Respawn : MonoBehaviour {
 
     public LevelManager levelManager;
 
+    public Sprite activatedSprite;
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +26,7 @@ public class Respawn : MonoBehaviour {
         if (other.name == "Player")
         {
             levelManager.currentCheckpoint = gameObject;
+            gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
             Debug.Log("Activated Checkpoint " + transform.position);
         }
 

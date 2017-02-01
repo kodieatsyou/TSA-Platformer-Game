@@ -18,14 +18,10 @@ public class Colors : MonoBehaviour {
 
     public Color[] splitColors;
 
-    public Color combineColors(Color col1, Color col2)
+    public Color CombineColorsFam(Color col1, Color col2)
     {
-        Debug.Log("Fuck");
-        Debug.Log("Player combine: " + col1);
-        Debug.Log("Mate combine: " + col2);
-        if (col1 == myblue && col2 == myyellow)
+        if ((col1 == myblue && col2 == myyellow) || (col1 == myyellow && col2 == myblue))
         {
-            Debug.Log("we hate niggers");
             return mygreen;
         } else if ((col1 == mygreen && col2 == myred) || (col1 == myred && col2 == mygreen))
         {
@@ -73,11 +69,6 @@ public class Colors : MonoBehaviour {
     {
         splitColors = new Color[] { myred, mygreen };
         return splitColors;
-    }
-
-    public Color CombineColors(Color col1, Color col2)
-    {
-        return mygreen;
     }
 
     public Color[] findSplit(Color col)

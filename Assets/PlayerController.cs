@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour {
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
-    private bool grounded;
+    public bool grounded;
 
-    private bool doubleJumped;
+    public bool doubleJumped;
 
     public Colors colors;
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     public PlayerInteractable interact;
 
-    public Color combineColor;
+    public Color combinedColor;
 
     // Use this for initialization
     void Start () {
@@ -75,16 +75,7 @@ public class PlayerController : MonoBehaviour {
 
     public void jump()
     {
-        if (grounded)
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
-        }
-
-        if(!doubleJumped && !grounded)
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
-            doubleJumped = true;
-        }
+        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
     }
 
     public void SplitKey()
@@ -110,15 +101,13 @@ public class PlayerController : MonoBehaviour {
         {
             return;
         }
-        //Debug.Log("Mate: " + mateCube.GetComponent<PlayerController>().objectColor);
-        //Debug.Log("Player: " + objectColor);
         Debug.Log(mateCube.name);
-        combineColor = colors.CombineColors(objectColor, mateCube.GetComponent<PlayerController>().objectColor);
-        if (combineColor == Color.magenta)
+        combinedColor = colors.CombineColorsFam(objectColor, mateCube.GetComponent<PlayerController>().objectColor);
+        if (combinedColor == Color.magenta)
         {
             return;
         }
-        levelManager.Combine(combineColor, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale.x, mateCube.transform.localScale.x, gameObject.transform.localScale.y, mateCube.transform.localScale.y, gameObject, mateCube.gameObject);
+        levelManager.Combine(combinedColor, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale.x, mateCube.transform.localScale.x, gameObject.transform.localScale.y, mateCube.transform.localScale.y, gameObject, mateCube.gameObject);
         levelManager.cubeList.Remove(gameObject);
         levelManager.cubeList.Remove(mateCube);
         Destroy(mateCube);

@@ -21,8 +21,15 @@ public class Interactabe : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.name == levelManager.currentFollow.name)
-        {
+        { 
+            if(levelManager.currentFollow.GetComponent<BoxCollider2D>().isTrigger)
+            {
+                Debug.Log("fuck");
+            }
+
+            Debug.Log("burn the jews");
             interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+
         }
 
     }
@@ -31,7 +38,13 @@ public class Interactabe : MonoBehaviour {
     {
         if (other.name == levelManager.currentFollow.name)
         {
+            if (!levelManager.currentFollow.GetComponent<BoxCollider2D>().isTrigger)
+            {
+                return;
+            }
+
             interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+
         }
     }
 
