@@ -14,6 +14,7 @@ public class Colors : MonoBehaviour {
     public Color grey = new Color(.73f, .73f, .73f, 1);
     public Color orange = new Color(1, .62f, .14f, 1);
     public Color yellow = new Color(1, .94f, .14f, 1);
+    public Color brown = new Color(.41f, .22f, .08f, 1);
 
     public Color[] splitColors;
 
@@ -66,9 +67,11 @@ public class Colors : MonoBehaviour {
         } else if (col == orange)
         {
             return SplitOrange();
+        } else if (col == brown)
+        {
+            return SplitBrown();
         }
-        return SplitBrown();
-
+        return null;
     }
 
 }

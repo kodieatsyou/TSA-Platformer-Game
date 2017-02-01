@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
 
     public GameObject startPoint;
 
-    private PlayerController player;
+    private PlayerController initPlayer;
 
     public GameObject deathParticle;
     public GameObject respawnParticle;
@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour {
 
     public GameObject splitPlayer;
 
-    public int currentFollowedNumber = 1;
+    public int currentFollowedNumber = 0;
 
     public GameObject currentFollow;
 
@@ -31,13 +31,20 @@ public class LevelManager : MonoBehaviour {
 
     public LayerMask ground;
 
+    private bool canSwitchPlayers;
+
     public List<GameObject> cubeList = new List<GameObject>();
 
     // Use this for initialization
     void Start() {
 
-        player = FindObjectOfType<PlayerController>();
+        canSwitchPlayers = true;
+
+        initPlayer = FindObjectOfType<PlayerController>();
+        initPlayer.objectColor = Color.white;
         colors = FindObjectOfType<Colors>();
+
+        Debug.Log("player.objectColor");
 
         cameraFollow = FindObjectOfType<Camera2DFollow>();
 
@@ -69,7 +76,7 @@ public class LevelManager : MonoBehaviour {
         {
             currentFollow.GetComponent<PlayerController>().jump();
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             currentFollow.GetComponent<PlayerController>().SplitKey();
         }
@@ -83,12 +90,14 @@ public class LevelManager : MonoBehaviour {
 
     public IEnumerator RespawnPlayerCo()
     {
-        Instantiate(deathParticle, player.transform.position, player.transform.rotation);
-        player.gameObject.SetActive(false);
+        canSwitchPlayers = false;
+        Instantiate(deathParticle, currentFollow.transform.position, currentFollow.transform.rotation);
+        currentFollow.gameObject.SetActive(false);
         yield return new WaitForSeconds(respawnTime);
-        player.transform.position = currentCheckpoint.transform.position;
-        player.gameObject.SetActive(true);
+        currentFollow.transform.position = currentCheckpoint.transform.position;
+        currentFollow.gameObject.SetActive(true);
         Instantiate(respawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
+        canSwitchPlayers = true;
     }
 
     public void Split(Vector3 pos, Quaternion rot, Color col1, Color col2, float sizex, float sizey, int num, LevelManager lm)
@@ -98,12 +107,16 @@ public class LevelManager : MonoBehaviour {
         cube1.transform.position = new Vector3(pos.x + 1, pos.y, pos.z);
         cube1.transform.localScale = new Vector3(sizex / 2, sizey / 2, 1);
         cube1.name = "Player " + numberOfPlayers;
+        cube1.GetComponent<PlayerController>().objectColor = col1;
+        cameraFollow.target = cube1.transform;
+        currentFollow = cube1;
 
         GameObject cube2 = (GameObject)Instantiate(splitPlayer, pos, rot);
         cube2.transform.position = new Vector3(pos.x - 1, pos.y, pos.z);
         cube2.transform.localScale = new Vector3(sizex / 2, sizey / 2, 1);
         numberOfPlayers += 1;
         cube2.name = "Player " + numberOfPlayers;
+        cube2.GetComponent<PlayerController>().objectColor = col2;
 
         MeshRenderer gameObjectRenderer1 = cube1.GetComponent<MeshRenderer>();
         MeshRenderer gameObjectRenderer2 = cube2.GetComponent<MeshRenderer>();
@@ -116,10 +129,6 @@ public class LevelManager : MonoBehaviour {
         gameObjectRenderer1.material = newMaterial1;
         gameObjectRenderer2.material = newMaterial2;
 
-
-
-        cameraFollow.target = cube1.transform;
-
         cubeList.Add(cube1);
         cubeList.Add(cube2);
 
@@ -127,10 +136,14 @@ public class LevelManager : MonoBehaviour {
         {
             cubeList[i].GetComponent<PlayerController>().enabled = false;
         }
+        currentFollow.GetComponent<PlayerController>().enabled = true;
     }
 
     public void changeFollowedCubeNigger()
     {
+        if (!canSwitchPlayers)
+            return;
+        cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = false;
         if (currentFollowedNumber + 1 > cubeList.Count - 1)
         {
             currentFollowedNumber = 0;
@@ -138,19 +151,9 @@ public class LevelManager : MonoBehaviour {
         {
             currentFollowedNumber += 1;
         }
-
         currentFollow = cubeList[currentFollowedNumber];
-        for (int i = 0; i <= cubeList.Count - 1; i++)
-        {
-            if (cubeList[i] == currentFollow)
-            {
-                cubeList[i].GetComponent<PlayerController>().enabled = true;
-            } else
-            {
-                cubeList[i].GetComponent<PlayerController>().enabled = false;
-            }
-        }
-        cameraFollow.target = currentFollow.transform;
+        cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = true;
+        cameraFollow.target = cubeList[currentFollowedNumber].transform;
     }
 
     public void SetParent(GameObject newParent, GameObject child)

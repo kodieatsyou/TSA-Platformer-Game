@@ -15,9 +15,12 @@ public class ActivateTextAtLine : MonoBehaviour {
     public bool requireButtonPress;
     private bool waitForPress;
 
+    public LevelManager levelManager;
+
 	// Use this for initialization
 	void Start () {
 
+        levelManager = FindObjectOfType<LevelManager>();
         theTextBox = FindObjectOfType<TextBoxManager>();
 	
 	}
@@ -42,7 +45,7 @@ public class ActivateTextAtLine : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Player")
+        if (other.name == levelManager.currentFollow.name)
         {
             if (requireButtonPress)
             {
@@ -63,7 +66,7 @@ public class ActivateTextAtLine : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "Player")
+        if (other.name == levelManager.currentFollow.name)
         {
             waitForPress = false;
         }

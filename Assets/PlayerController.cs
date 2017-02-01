@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour {
 
     public LevelManager levelManager;
 
-    Color startColor;
-
     private Color[] colorArray;
 
     // Use this for initialization
@@ -34,8 +32,6 @@ public class PlayerController : MonoBehaviour {
 
         levelManager = FindObjectOfType<LevelManager>();
         colors = FindObjectOfType<Colors>();
-
-        startColor = colors.white;
 
     }
 
@@ -83,8 +79,13 @@ public class PlayerController : MonoBehaviour {
 
     public void SplitKey()
     {
-        colorArray = colors.findSplit(startColor);
+        colorArray = colors.findSplit(objectColor);
+        if (colorArray == null)
+        {
+            return;
+        }
         levelManager.Split(gameObject.transform.position, gameObject.transform.rotation, colorArray[0], colorArray[1], gameObject.transform.localScale.x, gameObject.transform.localScale.y, levelManager.numberOfPlayers, levelManager);
+        levelManager.cubeList.Remove(gameObject);
         Destroy(gameObject);
     }
 

@@ -5,8 +5,11 @@ public class Interactabe : MonoBehaviour {
 
     public GameObject interactSprite;
 
+    public LevelManager levelManager;
+
 	// Use this for initialization
 	void Start () {
+        levelManager = FindObjectOfType<LevelManager>();
         interactSprite.GetComponent<SpriteRenderer>().enabled = false;
     }
 	
@@ -17,7 +20,7 @@ public class Interactabe : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.name == "Player")
+        if(other.name == levelManager.currentFollow.name)
         {
             interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
         }
@@ -26,7 +29,7 @@ public class Interactabe : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "Player")
+        if (other.name == levelManager.currentFollow.name)
         {
             interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
         }
