@@ -1347,6 +1347,8 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 256
+  unusedPlayer: {fileID: 6200000, guid: c34b24076cab02f4cbd8f1266f6dab7a, type: 2}
+  usedPlayer: {fileID: 6200000, guid: 95faefeaae0cfa240a22379274b9d810, type: 2}
   cubeList: []
 --- !u!4 &1414084251
 Transform:
@@ -1372,18 +1374,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6f03c1d403b814487dde3fab9b5b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  red: {r: 1, g: 0, b: 0, a: 1}
-  blue: {r: 0, g: 0, b: 1, a: 1}
-  green: {r: 0, g: 1, b: 0, a: 1}
-  white: {r: 1, g: 1, b: 1, a: 1}
-  black: {r: 0, g: 0, b: 0, a: 1}
-  purple: {r: 0.85, g: 0.14, b: 1, a: 1}
-  peach: {r: 1, g: 0.7, b: 0.37, a: 1}
-  pink: {r: 1, g: 0.72, b: 0.89, a: 1}
-  grey: {r: 0.73, g: 0.73, b: 0.73, a: 1}
-  orange: {r: 1, g: 0.62, b: 0.14, a: 1}
-  yellow: {r: 1, g: 0.94, b: 0.14, a: 1}
-  brown: {r: 0.41, g: 0.22, b: 0.08, a: 1}
+  myred: {r: 1, g: 0, b: 0, a: 1}
+  myblue: {r: 0, g: 0, b: 1, a: 1}
+  mygreen: {r: 0, g: 1, b: 0, a: 1}
+  mywhite: {r: 1, g: 1, b: 1, a: 1}
+  myblack: {r: 0, g: 0, b: 0, a: 1}
+  mypurple: {r: 0.85, g: 0.14, b: 1, a: 1}
+  mypeach: {r: 1, g: 0.7, b: 0.37, a: 1}
+  mypink: {r: 1, g: 0.72, b: 0.89, a: 1}
+  mygrey: {r: 0.73, g: 0.73, b: 0.73, a: 1}
+  myorange: {r: 1, g: 0.39310342, b: 0, a: 1}
+  myyellow: {r: 1, g: 0.94, b: 0.14, a: 1}
+  mybrown: {r: 0.41, g: 0.22, b: 0.08, a: 1}
   splitColors: []
 --- !u!1 &1503236666
 GameObject:

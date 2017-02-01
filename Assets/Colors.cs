@@ -3,79 +3,98 @@ using System.Collections;
 
 public class Colors : MonoBehaviour {
 
-    public Color red = new Color(1, 0, 0, 1);
-    public Color blue = new Color(0, 0, 1, 1);
-    public Color green = new Color(0, 1, 0, 1);
-    public Color white = new Color(1, 1, 1, 1);
-    public Color black = new Color(0, 0, 0, 1);
-    public Color purple = new Color(.85f, .14f, 1, 1);
-    public Color peach = new Color(1, .70f, .37f, 1);
-    public Color pink = new Color(1, .72f, .89f, 1);
-    public Color grey = new Color(.73f, .73f, .73f, 1);
-    public Color orange = new Color(1, .62f, .14f, 1);
-    public Color yellow = new Color(1, .94f, .14f, 1);
-    public Color brown = new Color(.41f, .22f, .08f, 1);
+    public Color myred = new Color(1, 0, 0, 1);
+    public Color myblue = new Color(0, 0, 1, 1);
+    public Color mygreen = new Color(0, 1, 0, 1);
+    public Color mywhite = new Color(1, 1, 1, 1);
+    public Color myblack = new Color(0, 0, 0, 1);
+    public Color mypurple = new Color(.85f, .14f, 1, 1);
+    public Color mypeach = new Color(1, .70f, .37f, 1);
+    public Color mypink = new Color(1, .72f, .89f, 1);
+    public Color mygrey = new Color(.73f, .73f, .73f, 1);
+    public Color myorange = new Color(1, .62f, .14f, 1);
+    public Color myyellow = new Color(1, .94f, .14f, 1);
+    public Color mybrown = new Color(.41f, .22f, .08f, 1);
 
     public Color[] splitColors;
 
     public Color combineColors(Color col1, Color col2)
     {
-        if(col1 == yellow && col2 == blue)
+        Debug.Log("Fuck");
+        Debug.Log("Player combine: " + col1);
+        Debug.Log("Mate combine: " + col2);
+        if (col1 == myblue && col2 == myyellow)
         {
-            return green;
-        } else if ()
+            Debug.Log("we hate niggers");
+            return mygreen;
+        } else if ((col1 == mygreen && col2 == myred) || (col1 == myred && col2 == mygreen))
+        {
+            return mybrown;
+        } else if ((col1 == myyellow && col2 == myred) || (col1 == myred && col2 == myyellow))
+        {
+            return myorange;
+        } else if ((col1 == myred && col2 == myblue) || (col1 == myblue && col2 == myred))
+        {
+            return mypurple;
+        } else if ((col1 == myorange && col2 == mypurple) || (col1 == mypurple && col2 == myorange))
+        {
+            return mywhite;
+        } else
+        {
+            return Color.magenta;
+        }
     }
 
     public Color[] SplitGreen()
     {
-        splitColors = new Color[] { yellow, blue };
+        splitColors = new Color[] { myyellow, myblue };
         return splitColors;
     }
 
     public Color[] SplitPurple()
     {
-        splitColors = new Color[] { red, blue };
+        splitColors = new Color[] { myred, myblue };
         return splitColors;
     }
 
     public Color[] SplitWhite()
     {
-        splitColors = new Color[] { purple, orange };
+        splitColors = new Color[] { mypurple, myorange };
         return splitColors;
     }
 
     public Color[] SplitOrange()
     {
-        splitColors = new Color[] { yellow, red };
+        splitColors = new Color[] { myyellow, myred };
         return splitColors;
     }
 
     public Color[] SplitBrown()
     {
-        splitColors = new Color[] { red, green };
+        splitColors = new Color[] { myred, mygreen };
         return splitColors;
     }
 
     public Color CombineColors(Color col1, Color col2)
     {
-        return green;
+        return mygreen;
     }
 
     public Color[] findSplit(Color col)
     {
-        if (col == green)
+        if (col == mygreen)
         {
             return SplitGreen();
-        } else if (col == purple)
+        } else if (col == mypurple)
         {
             return SplitPurple();
-        } else if (col == white)
+        } else if (col == mywhite)
         {
             return SplitWhite();
-        } else if (col == orange)
+        } else if (col == myorange)
         {
             return SplitOrange();
-        } else if (col == brown)
+        } else if (col == mybrown)
         {
             return SplitBrown();
         }

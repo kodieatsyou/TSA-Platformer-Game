@@ -23,10 +23,21 @@ public class PlayerController : MonoBehaviour {
 
     public LevelManager levelManager;
 
+    public bool isBeingUsed;
+
     private Color[] colorArray;
+
+    public GameObject interactSprite;
+
+    public GameObject mateCube;
+
+    public PlayerInteractable interact;
+
+    public Color combineColor;
 
     // Use this for initialization
     void Start () {
+        interact = FindObjectOfType<PlayerInteractable>();
         rend = GetComponent<Renderer>();
         rend.material.shader = Shader.Find("Standard");
 
@@ -50,7 +61,6 @@ public class PlayerController : MonoBehaviour {
 
         if (grounded)
             doubleJumped = false;
-
     }
 
     public void moveLeft()
@@ -92,5 +102,45 @@ public class PlayerController : MonoBehaviour {
     public void StopMoving()
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+    }
+
+    public void MateKey()
+    {
+        if (mateCube == null)
+        {
+            return;
+        }
+        //Debug.Log("Mate: " + mateCube.GetComponent<PlayerController>().objectColor);
+        //Debug.Log("Player: " + objectColor);
+        Debug.Log(mateCube.name);
+        combineColor = colors.CombineColors(objectColor, mateCube.GetComponent<PlayerController>().objectColor);
+        if (combineColor == Color.magenta)
+        {
+            return;
+        }
+        levelManager.Combine(combineColor, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale.x, mateCube.transform.localScale.x, gameObject.transform.localScale.y, mateCube.transform.localScale.y, gameObject, mateCube.gameObject);
+        levelManager.cubeList.Remove(gameObject);
+        levelManager.cubeList.Remove(mateCube);
+        Destroy(mateCube);
+        Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.name.Contains("Player"))
+        {
+            mateCube = other.gameObject;
+            interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+        }
+
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name.Contains("Player"))
+        {
+            mateCube = null;
+            interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+        }
     }
 }

@@ -34,5 +34,14 @@ public class Interactabe : MonoBehaviour {
             interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
         }
     }
+
+    /*void OnCollisionStay2D(Collider2D other)
+    {
+        Debug.Log("FACK");
+        if (other.name == levelManager.currentFollow.name)
+        {
+            interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+        }
+    }*/
     
 }

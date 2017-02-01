@@ -33,6 +33,10 @@ public class LevelManager : MonoBehaviour {
 
     private bool canSwitchPlayers;
 
+    public PhysicsMaterial2D unusedPlayer;
+
+    public PhysicsMaterial2D usedPlayer;
+
     public List<GameObject> cubeList = new List<GameObject>();
 
     // Use this for initialization
@@ -79,6 +83,15 @@ public class LevelManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             currentFollow.GetComponent<PlayerController>().SplitKey();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            currentFollow.GetComponent<PlayerController>().MateKey();
+        }
+
+        if (currentFollowedNumber > cubeList.Count - 1)
+        {
+            currentFollowedNumber = 0;
         }
 
     }
@@ -135,8 +148,26 @@ public class LevelManager : MonoBehaviour {
         for (int i = 0; i <= cubeList.Count - 1; i++)
         {
             cubeList[i].GetComponent<PlayerController>().enabled = false;
+            cubeList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
         }
         currentFollow.GetComponent<PlayerController>().enabled = true;
+        currentFollow.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        currentFollow.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void Combine(Color col, Vector3 pos, Quaternion rot, float sizex1, float sizex2, float sizey1, float sizey2, GameObject obj1, GameObject obj2)
+    {
+        GameObject cube1 = (GameObject)Instantiate(splitPlayer, pos, rot);
+        cube1.transform.localScale = new Vector3(sizex1 + sizex2, sizey1 + sizey2);
+        cube1.name = "Player " + numberOfPlayers;
+        cube1.GetComponent<PlayerController>().objectColor = col;
+        MeshRenderer gameObjectRenderer1 = cube1.GetComponent<MeshRenderer>();
+        Material newMaterial1 = new Material(Shader.Find("Standard"));
+        newMaterial1.color = col;
+        gameObjectRenderer1.material = newMaterial1;
+        cubeList.Add(cube1);
+        cameraFollow.target = cube1.transform;
+        currentFollow = cube1;
     }
 
     public void changeFollowedCubeNigger()
@@ -144,6 +175,7 @@ public class LevelManager : MonoBehaviour {
         if (!canSwitchPlayers)
             return;
         cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = false;
+        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
         if (currentFollowedNumber + 1 > cubeList.Count - 1)
         {
             currentFollowedNumber = 0;
@@ -153,6 +185,8 @@ public class LevelManager : MonoBehaviour {
         }
         currentFollow = cubeList[currentFollowedNumber];
         cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = true;
+        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         cameraFollow.target = cubeList[currentFollowedNumber].transform;
     }
 
