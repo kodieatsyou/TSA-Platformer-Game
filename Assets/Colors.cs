@@ -16,26 +16,8 @@ public class Colors : MonoBehaviour {
     public Color myorange = new Color(1, .62f, .14f, 1);
     public Color myyellow = new Color(1, .94f, .14f, 1);
     public Color mybrown = new Color(.41f, .22f, .08f, 1);
-
-    public Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>();
   
     public Color[] splitColors;
-
-    public void initDict()
-    {
-        colorDictionary.Add("white", mywhite);
-        colorDictionary["black"] = myblack;
-        colorDictionary["blue"] = myblue;
-        colorDictionary["green"] = mygreen;
-        colorDictionary["white"] = mywhite;
-        colorDictionary["purple"] = mypurple;
-        colorDictionary["peach"] = mypeach;
-        colorDictionary["pink"] = mypink;
-        colorDictionary["grey"] = mygrey;
-        colorDictionary["orange"] = myorange;
-        colorDictionary["yellow"] = myyellow;
-        colorDictionary["brown"] = mybrown;
-    }
 
     public Color CombineColorsFam(Color col1, Color col2)
     {
@@ -109,53 +91,6 @@ public class Colors : MonoBehaviour {
             return SplitBrown();
         }
         return null;
-    }
-
-    public Color findColor(string name)
-    {
-        if(name == "1")
-        {
-            return myblack;
-        }
-        if (name == myblue.ToString())
-        {
-            return myblue;
-        }
-        if (name == mygreen.ToString())
-        {
-            return mygreen;
-        }
-        if (name == mywhite.ToString())
-        {
-            return mywhite;
-        }
-        if (name == mypurple.ToString())
-        {
-            return mypurple;
-        }
-        if (name == mypeach.ToString())
-        {
-            return mypeach;
-        }
-        if (name == mypink.ToString())
-        {
-            return mypink;
-        }
-        if (name == mygrey.ToString())
-        {
-            return mygrey;
-        }
-        if (name == myorange.ToString())
-        {
-            return myorange;
-        }
-        if (name == myyellow.ToString())
-        {
-            return myyellow;
-        } else
-        {
-            return mybrown;
-        }
     }
 
 }

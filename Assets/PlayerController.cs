@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        gameObject.GetComponent<Renderer>().sortingLayerName = "Character";
         interact = FindObjectOfType<PlayerInteractable>();
         rend = GetComponent<Renderer>();
         rend.material.shader = Shader.Find("Standard");

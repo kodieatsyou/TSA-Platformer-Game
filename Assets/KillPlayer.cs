@@ -22,7 +22,10 @@ public class KillPlayer : MonoBehaviour {
 
         if (other.name == levelManager.currentFollow.name)
         {
-            levelManager.RespawnPlayer();
+            if(!other.isTrigger)
+            {
+                levelManager.RespawnPlayer();
+            }
 
         }
 

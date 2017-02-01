@@ -4,9 +4,12 @@ using System.Collections;
 public class ColorDeposit : MonoBehaviour {
 
     public GameObject activator;
-    public string colorName;
     public Color color;
     public LevelManager levelManager;
+
+    public float r;
+    public float g;
+    public float b;
 
     Colors colors;
 
@@ -15,9 +18,9 @@ public class ColorDeposit : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        colors = FindObjectOfType<Colors>();
+        color = new Color(r, g, b);
 
-        color = colors.findColor(colorName);
+        gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
 
         levelManager = FindObjectOfType<LevelManager>();
 	
@@ -27,7 +30,7 @@ public class ColorDeposit : MonoBehaviour {
 	void Update () {
         if (ready && Input.GetKeyDown(KeyCode.E))
         {
-            if (levelManager.currentFollow.GetComponent<PlayerController>().objectColor == colors.colorDictionary[colorName])
+            if (levelManager.currentFollow.GetComponent<PlayerController>().objectColor == color)
             {
                 Debug.Log("hi");
                 activator.GetComponent<Activator>().isActive = true;

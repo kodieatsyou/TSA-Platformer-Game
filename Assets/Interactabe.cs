@@ -22,13 +22,11 @@ public class Interactabe : MonoBehaviour {
     {
         if(other.name == levelManager.currentFollow.name)
         { 
-            if(levelManager.currentFollow.GetComponent<BoxCollider2D>().isTrigger)
+            if(!other.isTrigger)
             {
-                Debug.Log("fuck");
+                Debug.Log("burn the jews");
+                interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
             }
-
-            Debug.Log("burn the jews");
-            interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
 
         }
 
@@ -38,12 +36,10 @@ public class Interactabe : MonoBehaviour {
     {
         if (other.name == levelManager.currentFollow.name)
         {
-            if (!levelManager.currentFollow.GetComponent<BoxCollider2D>().isTrigger)
+            if (!other.isTrigger)
             {
-                return;
-            }
-
-            interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+                interactSprite.GetComponent<SpriteRenderer>().enabled = !interactSprite.GetComponent<SpriteRenderer>().enabled;
+            }     
 
         }
     }

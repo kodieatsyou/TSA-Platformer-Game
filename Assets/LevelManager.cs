@@ -39,6 +39,8 @@ public class LevelManager : MonoBehaviour {
 
     public List<GameObject> cubeList = new List<GameObject>();
 
+    public StartFlag startFlag;
+
     // Use this for initialization
     void Start() {
 
@@ -46,8 +48,10 @@ public class LevelManager : MonoBehaviour {
 
         initPlayer = FindObjectOfType<PlayerController>();
         initPlayer.objectColor = Color.white;
-        colors = FindObjectOfType<Colors>();
-        colors.initDict();
+
+        startFlag = FindObjectOfType<StartFlag>();
+
+        initPlayer.transform.position = startFlag.transform.position;
 
 
         Debug.Log("player.objectColor");
