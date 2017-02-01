@@ -23,7 +23,7 @@ public class Respawn : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.name == "Player")
+        if (other.name.Contains("Player"))
         {
             levelManager.currentCheckpoint = gameObject;
             gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;

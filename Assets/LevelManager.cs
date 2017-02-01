@@ -47,12 +47,17 @@ public class LevelManager : MonoBehaviour {
         initPlayer = FindObjectOfType<PlayerController>();
         initPlayer.objectColor = Color.white;
         colors = FindObjectOfType<Colors>();
+        colors.initDict();
+
 
         Debug.Log("player.objectColor");
 
         cameraFollow = FindObjectOfType<Camera2DFollow>();
 
         curPlayer = "Player" + numberOfPlayers;
+
+        initPlayer.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        initPlayer.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
 
     }
@@ -107,8 +112,35 @@ public class LevelManager : MonoBehaviour {
             currentFollowedNumber = 0;
         }
 
+        for (int i = 0; i <= cubeList.Count - 1; i++)
+        {
+            if (cubeList[i] != currentFollow)
+            {
+                cubeList[i].gameObject.layer = LayerMask.NameToLayer("Ground");
+            }
+            else
+            {
+                cubeList[i].gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+        }
+
         numberOfPlayers = cubeList.Count;
 
+    }
+
+    void FixedUpdate()
+    {
+        for (int i = 0; i <= cubeList.Count - 1; i++)
+        {
+            if (cubeList[i] != currentFollow)
+            {
+                cubeList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+            }
+            else
+            {
+                cubeList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+        }
     }
 
     public void RespawnPlayer()
@@ -163,18 +195,15 @@ public class LevelManager : MonoBehaviour {
         for (int i = 0; i <= cubeList.Count - 1; i++)
         {
             cubeList[i].GetComponent<PlayerController>().enabled = false;
-            cubeList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
+            cubeList[i].name = "Player " + i;
         }
         currentFollow.GetComponent<PlayerController>().enabled = true;
-        currentFollow.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        currentFollow.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void Combine(Color col, Vector3 pos, Quaternion rot, float sizex1, float sizex2, float sizey1, float sizey2, GameObject obj1, GameObject obj2)
     {
         GameObject cube1 = (GameObject)Instantiate(splitPlayer, pos, rot);
         cube1.transform.localScale = new Vector3(sizex1 + sizex2, sizey1 + sizey2);
-        cube1.name = "Player " + numberOfPlayers;
         cube1.GetComponent<PlayerController>().objectColor = col;
         MeshRenderer gameObjectRenderer1 = cube1.GetComponent<MeshRenderer>();
         Material newMaterial1 = new Material(Shader.Find("Standard"));
@@ -183,6 +212,10 @@ public class LevelManager : MonoBehaviour {
         cubeList.Add(cube1);
         cameraFollow.target = cube1.transform;
         currentFollow = cube1;
+        for (int i = 0; i <= cubeList.Count - 1; i++)
+        {
+            cubeList[i].name = "Player " + i;
+        }
     }
 
     public void changeFollowedCubeNigger()
@@ -190,7 +223,6 @@ public class LevelManager : MonoBehaviour {
         if (!canSwitchPlayers)
             return;
         cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = false;
-        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
         if (currentFollowedNumber + 1 > cubeList.Count - 1)
         {
             currentFollowedNumber = 0;
@@ -200,8 +232,12 @@ public class LevelManager : MonoBehaviour {
         }
         currentFollow = cubeList[currentFollowedNumber];
         cubeList[currentFollowedNumber].GetComponent<PlayerController>().enabled = true;
-        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        cubeList[currentFollowedNumber].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        for (int i = 0; i <= cubeList.Count - 1; i++)
+        {
+            if (cubeList[i]!= currentFollow)
+            {
+            }
+        }
         cameraFollow.target = cubeList[currentFollowedNumber].transform;
     }
 
