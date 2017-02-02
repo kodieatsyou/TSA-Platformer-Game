@@ -7,11 +7,16 @@ public class Respawn : MonoBehaviour {
 
     public Sprite activatedSprite;
 
+    public GameObject activateParticle;
+
+    public bool activated;
+
     // Use this for initialization
     void Start()
     {
 
         levelManager = FindObjectOfType<LevelManager>();
+        activated = false;
 
     }
 
@@ -25,9 +30,15 @@ public class Respawn : MonoBehaviour {
 
         if (other.name.Contains("Player"))
         {
-            levelManager.currentCheckpoint = gameObject;
-            gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
-            Debug.Log("Activated Checkpoint " + transform.position);
+            if (!activated)
+            {
+                levelManager.currentCheckpoint = gameObject;
+                gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
+                Instantiate(activateParticle, gameObject.transform.position, gameObject.transform.rotation);
+                Debug.Log("Activated Checkpoint " + transform.position);
+                activated = true;
+            }
+
         }
 
     }

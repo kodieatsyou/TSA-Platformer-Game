@@ -11,7 +11,7 @@ GameObject:
   - 198: {fileID: 19839666}
   - 199: {fileID: 19924012}
   - 114: {fileID: 11489272}
-  - 82: {fileID: 8293424}
+  - 82: {fileID: 8238684}
   m_Layer: 0
   m_Name: Death Particle Fam
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!82 &8293424
+--- !u!82 &8238684
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -41,7 +41,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2f19bf7eb55815c4484346764523edfa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d47328f61250b8c4fbea6cb74258b2a8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
