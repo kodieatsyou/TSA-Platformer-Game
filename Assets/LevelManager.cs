@@ -222,7 +222,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void changeFollowedCubeNigger()
+    public void changeFollowedCube()
     {
         if (!canSwitchPlayers)
             return;
